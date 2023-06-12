@@ -1,3 +1,5 @@
+var uniqid = require('uniqid'); 
+
 const TABLA = 'user'
 
 module.exports = function (injectedStore) {
@@ -11,8 +13,17 @@ module.exports = function (injectedStore) {
   function get(id) {
     return store.get(TABLA, id);
   }
-  function upsert(data) {
-    return store.upsert(TABLA, data);
+  function upsert(body) {
+    const user = {
+      name: body.name,
+    }
+
+    if (body.id) {
+      user.id = body.id
+    } else {
+      user.id = uniqid()
+    }
+    return store.upsert(TABLA, user)
   }
 
   return {

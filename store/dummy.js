@@ -12,7 +12,7 @@ async function get(tabla, id) {
   return col.filter(item => item.id === id)[0] || null
 }
 async function upsert(tabla, data) {
-  db[1].push(data)
+  db[tabla].push(data)
 }
 async function remove(tabla, id) {
   return true
